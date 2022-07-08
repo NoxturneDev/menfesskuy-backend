@@ -18,19 +18,21 @@ exports.verifyToken = async (req, res, next) => {
     })
 }
 
-exports.refreshToken = async (req, res) => {
+exports.tokenRefresh = async (req, res) => {
     try {
-        const refreshToken = req.cookies.refreshToken
-        if (!refreshToken) return res.sendStatus(401)
+        const token = req.cookies.refreshToken
+        console.log(token)
+        console.log(req.cookies.refreshToken)
+        if (!token) return res.status(401).json({msg : 'gagal bro'})
 
         const user = await Users.findAll({
             where: {
-                refresh_token: refreshToken
+                refresh_token: token
             }
         })
 
         if (!user[0]) res.sendStatus(403)
-        jwt.verify(refreshToken, process.env.SECRET_REFRESH_TOKEN, (err) => {
+        jwt.verify(token, process.env.SECRET_REFRESH_TOKEN, (err) => {
             if (err) res.sendStatus(403)
 
             const userId = user[0].id

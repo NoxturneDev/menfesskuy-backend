@@ -71,8 +71,7 @@ exports.Login = async (req, res) => {
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000,
-
+            maxAge: 24 * 60 * 60 * 1000
         })
         res.json({ accessToken })
     } catch (err) {
@@ -83,7 +82,6 @@ exports.Login = async (req, res) => {
 exports.Logout = async (req, res) => {
     try {
         const refreshToken = req.cookies.refreshToken
-
         if (!refreshToken) return res.sendStatus(204)
 
         const user = await Users.findAll({
