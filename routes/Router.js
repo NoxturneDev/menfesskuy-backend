@@ -16,7 +16,7 @@ router.post('/api/send/message', sendMessages)
 
 //GET SPECIFIC USER BY GIVEN LINK
 router.post('/api/send/message/:link', sendMessages)
-router.get('/api/get/message/:link', verifyToken, getMessages)
+router.get('/api/get/message/:link', getMessages)
 
 
 

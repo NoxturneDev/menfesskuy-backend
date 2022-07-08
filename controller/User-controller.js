@@ -53,11 +53,12 @@ exports.Login = async (req, res) => {
 
         const userId = user[0].id
         const userName = user[0].username
+        const user_link = user[0].user_link
         console.log(userId, userName)
-        const accessToken = jwt.sign({ userId, userName }, process.env.SECRET_ACCESS_TOKEN, {
+        const accessToken = jwt.sign({ userId, userName, user_link }, process.env.SECRET_ACCESS_TOKEN, {
             expiresIn: '15s'
         })
-        const refreshToken = jwt.sign({ userId, userName }, process.env.SECRET_REFRESH_TOKEN, {
+        const refreshToken = jwt.sign({ userId, userName, user_link }, process.env.SECRET_REFRESH_TOKEN, {
             expiresIn: '1d'
         })
 

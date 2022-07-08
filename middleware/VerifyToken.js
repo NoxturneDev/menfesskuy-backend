@@ -5,10 +5,12 @@ exports.verifyToken = async (req, res, next) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
 
+    console.log(authHeader)
     if (token == null) return res.sendStatus(401)
     jwt.verify(token, process.env.SECRET_ACCESS_TOKEN, (err, decoded) => {
         if (err) return res.sendStatus(403)
         req.username = decoded.username
+        req.link = decoded.user_link
         next()
     })
 }
@@ -30,7 +32,8 @@ exports.refreshToken = async (req, res) => {
 
             const userId = user[0].id
             const username = user[0].username
-            const accessToken = jwt.sign({ userId, username }, process.env.SECRET_ACCESS_TOKEN, {
+            const user_link = user[0].user_link
+            const accessToken = jwt.sign({ userId, username, user_link }, process.env.SECRET_ACCESS_TOKEN, {
                 expiresIn: '15s'
             })
 

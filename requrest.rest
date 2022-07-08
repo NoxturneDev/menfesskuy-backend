@@ -1,16 +1,15 @@
 ###
 GET http://localhost:3001/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJOYW1lIjoiR2FsaWggQWRoaSIsImlhdCI6MTY1NzI3MTA3MiwiZXhwIjoxNjU3MjcxMDg3fQ.Tf6GGyNR7IwgB5ksEFjqkKxHUrtS3JoDW7z6tvjSTbg
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJOYW1lIjoiR2FsaWggQWRoaSIsInVzZXJfbGluayI6InVzZXIxMDIzIiwiaWF0IjoxNjU3Mjc1MzQxLCJleHAiOjE2NTcyNzUzNTZ9.VpDbPSAIW4SmS2S_5rS-pyyaDOB--K95UdqpfjG3BAM
 ###
 POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-    "username" : "Galih",
+    "username" : "thomas slebew",
     "password" : "123",
     "confirmationPass" : "123",
-    "userLink" : "user1000"
+    "userLink" : "user1010"
 
 }
 
@@ -41,10 +40,10 @@ POST http://localhost:3001/api/send/message/user1023
 Content-Type: application/json
 
 {
-    "from" : "ganteng 3",
-    "to" : "Galih Adhi Kusuma",
-    "message": "anjay mabar yuk"
+    "from" : "mamang thomas",
+    "to" : "galih san",
+    "message": "ayo"
 }
 
 ###
-GET http://localhost:3001/api/get/message
+GET http://localhost:3001/api/get/message/user1023
