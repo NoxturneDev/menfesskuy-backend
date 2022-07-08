@@ -5,6 +5,7 @@ const { Users, Messages } = require('./models/Users.js')
 const Router = require('./routes/Router.js')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 dotenv.config()
 
 app = express()
@@ -26,6 +27,7 @@ try {
     console.error(err)
 }
 
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
 app.use(express.json())
 app.use(cookieParser())
 app.use(Router)
