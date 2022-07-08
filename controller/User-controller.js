@@ -107,3 +107,36 @@ exports.Logout = async (req, res) => {
         console.error(err)
     }
 }
+
+exports.generateLink = async (req, res) => {
+    try {
+        // AUTHORIZATION WITH JWT
+        const refreshToken = req.cookies.refreshToken
+        if (!refreshToken) return res.sendStatus(401)
+
+        const user = await Users.findAll({
+            where: {
+                refresh_token: refreshToken
+            }
+        })
+
+        // GENERATE UNIQUE STRING FOR THE LINK BASED ON USER INFORMATION
+        const username = user[0].username.split(' ')[0]
+        const randomNum = Math.floor(Math.random() * 90 + 10)
+        const userId = user[0].id
+        const link = `${username}${userId}~${randomNum}!`   
+
+        // VALIDATE IF THERE'S ALREADY A LINK
+        if(user[0].user_link !== null) {
+            return res.status(401).json({msg: 'You already have a link'})
+        }
+        await Users.update({user_link : link}, {
+            where: {
+                id: userId
+            }
+        })
+        res.status(200).json({msg: 'link generated', link})
+    } catch (err) {
+        console.error(err)
+    }
+}

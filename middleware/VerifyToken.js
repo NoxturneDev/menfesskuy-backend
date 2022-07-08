@@ -11,7 +11,9 @@ exports.verifyToken = async (req, res, next) => {
         if (err) return res.sendStatus(403)
         req.username = decoded.username
         req.link = decoded.user_link
-        if (req.link !== user_link) return res.sendStatus(403)
+        if (user_link) {
+            if (req.link !== user_link) return res.sendStatus(403)
+        }
         next()
     })
 }

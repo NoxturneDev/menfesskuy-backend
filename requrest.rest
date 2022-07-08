@@ -6,10 +6,9 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-    "username" : "thomas slebew",
-    "password" : "123",
-    "confirmationPass" : "123",
-    "userLink" : "user1010"
+    "username" : "test",
+    "password" : "test",
+    "confirmationPass" : "test"
 
 }
 
@@ -18,7 +17,7 @@ POST http://localhost:3001/login
 Content-Type: application/json
 
 {
-    "username" : "Galih Adhi",
+    "username" : "thomas slebew ",
     "password" : "123"
 }
 
@@ -46,4 +45,8 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3001/api/get/message/user1023
+GET http://localhost:3001/api/get/message/user1010
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoidGhvbWFzIHNsZWJldyIsInVzZXJfbGluayI6InVzZXIxMDEwIiwiaWF0IjoxNjU3Mjk2MDU4LCJleHAiOjE2NTcyOTYwNzN9.Hrlhs50YicfMaStxLbd2dePUXK-b2t7D74lJiv5uZXY
+###
+GET http://localhost:3001/api/get/link
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoidGhvbWFzIHNsZWJldyIsInVzZXJfbGluayI6Ik5VTEwiLCJpYXQiOjE2NTcyOTcyMTEsImV4cCI6MTY1NzI5NzIyNn0.qur5EZEe74m18nBNbs9qaMvt_0sw0b2qlzbrq4P-Csw
