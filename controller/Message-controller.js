@@ -14,7 +14,7 @@ exports.getMessages = async (req, res) => {
             }
         })
 
-        const msg = await user[0].getTarget()
+        const msg = user[0].getTarget()
         if (!msg[0]) return res.status(400).json({ msg: "tidak ada pesan" })
         res.status(200).json({ msg: 'berhasil dpt pesan', msg })
     } catch (err) {
