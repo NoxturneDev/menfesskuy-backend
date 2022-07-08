@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken')
 exports.getMessages = async (req, res) => {
     const user_link = req.params['link']
 
-
     try {
         const user = await Users.findAll({
             where: {
