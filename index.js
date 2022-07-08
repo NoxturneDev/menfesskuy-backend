@@ -1,7 +1,7 @@
 const express = require('express')
 const port = 3001
 const db = require('./config/Database.js')
-const Users = require('./models/Users.js')
+const { Users, Messages } = require('./models/Users.js')
 const Router = require('./routes/Router.js')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
@@ -16,6 +16,10 @@ try {
     })
     const sync = Users.sync()
     sync.then(() => {
+        console.log('db created')
+    })
+    const msg = Messages.sync()
+    msg.then(() => {
         console.log('db created')
     })
 } catch (err) {

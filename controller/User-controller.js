@@ -1,4 +1,4 @@
-const Users = require('../models/Users.js')
+const { Users } = require('../models/Users.js')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -16,7 +16,7 @@ exports.getUsers = async (req, res) => {
 }
 
 exports.registerUser = async (req, res) => {
-    const { username, password, confirmationPass } = req.body
+    const { username, password, confirmationPass, userLink } = req.body
 
     if (password !== confirmationPass) {
         res.status(401).json({ msg: 'Password tidak sama!' })
@@ -29,7 +29,7 @@ exports.registerUser = async (req, res) => {
         const user = await Users.create({
             username: username,
             password: hashPassword,
-            user_link: '123'
+            user_link: userLink
         })
         res.status(200).json({ msg: 'Mantap', user })
     } catch (err) {
@@ -73,7 +73,7 @@ exports.Login = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
 
         })
-        res.json({accessToken})
+        res.json({ accessToken })
     } catch (err) {
         console.error(err)
     }
@@ -83,8 +83,7 @@ exports.Logout = async (req, res) => {
     try {
         const refreshToken = req.cookies.refreshToken
 
-        if(!refreshToken) return res.sendStatus(204)
-        const { username } = req.body
+        if (!refreshToken) return res.sendStatus(204)
 
         const user = await Users.findAll({
             where: {
@@ -92,12 +91,12 @@ exports.Logout = async (req, res) => {
             }
         })
 
-        if(!user[0]) return res.sendStatus(204)
+        if (!user[0]) return res.sendStatus(204)
         const userId = user[0].id
-        
-        await Users.update({refresh_token: null}, {
+
+        await Users.update({ refresh_token: null }, {
             where: {
-                id : userId
+                id: userId
             }
         })
 
