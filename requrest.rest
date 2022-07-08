@@ -1,5 +1,6 @@
 ###
 GET http://localhost:3001/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiR2FsaWggQWRoaSIsImlhdCI6MTY1NzE3NjQ0MCwiZXhwIjoxNjU3MTc2NDU1fQ.10FIez3HD4_h5ZiuVQFWYct-OnDFM8xFC5eAUAcBqf4
 
 ###
 POST http://localhost:3001/users
@@ -20,6 +21,8 @@ Content-Type: application/json
     "password" : "123"
 }
 
+###
+POST http://localhost:3001/token
 
 ###
 DELETE http://localhost:3001/logout

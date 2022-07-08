@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 
+
 exports.getUsers = async (req, res) => {
     try {
         const user = await Users.findAll()
@@ -50,7 +51,29 @@ exports.Login = async (req, res) => {
         const match = await bcrypt.compare(password, user[0].password)
         if (!match) res.status(403).json({ msg: "Password salah cok!" })
 
-        res.status(200).json({ msg: 'LOGIN!', user })
+        const userId = user[0].id
+        const userName = user[0].username
+        console.log(userId, userName)
+        const accessToken = jwt.sign({ userId, userName }, process.env.SECRET_ACCESS_TOKEN, {
+            expiresIn: '15s'
+        })
+        const refreshToken = jwt.sign({ userId, userName }, process.env.SECRET_REFRESH_TOKEN, {
+            expiresIn: '1d'
+        })
+
+        await Users.update({ refresh_token: refreshToken }, {
+            where: {
+                id: userId
+            }
+        }
+        )
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000,
+
+        })
+        res.json({accessToken})
     } catch (err) {
         console.error(err)
     }
@@ -58,14 +81,27 @@ exports.Login = async (req, res) => {
 
 exports.Logout = async (req, res) => {
     try {
+        const refreshToken = req.cookies.refreshToken
+
+        if(!refreshToken) return res.sendStatus(204)
         const { username } = req.body
 
         const user = await Users.findAll({
             where: {
-                username: username
+                refresh_token: refreshToken
             }
         })
 
+        if(!user[0]) return res.sendStatus(204)
+        const userId = user[0].id
+        
+        await Users.update({refresh_token: null}, {
+            where: {
+                id : userId
+            }
+        })
+
+        res.clearCookie('refreshToken')
         res.status(200).json({ msg: 'BERASHIL LOGOUT' })
     } catch (err) {
         console.error(err)

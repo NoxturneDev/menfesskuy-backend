@@ -3,6 +3,10 @@ const port = 3001
 const db = require('./config/Database.js')
 const Users = require('./models/Users.js')
 const Router = require('./routes/Router.js')
+const dotenv = require('dotenv')
+const cookieParser = require('cookie-parser')
+dotenv.config()
+
 app = express()
 
 try {
@@ -19,6 +23,7 @@ try {
 }
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(Router)
 app.use('/', (req, res) => {
     res.json({ msg: "BERHASIL" })
