@@ -1,16 +1,17 @@
 const jwt = require('jsonwebtoken')
-const Users = require('../models/Users.js')
+const { Users } = require('../models/Users.js')
 
 exports.verifyToken = async (req, res, next) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
+    const user_link = req.params['link']
 
-    console.log(authHeader)
     if (token == null) return res.sendStatus(401)
     jwt.verify(token, process.env.SECRET_ACCESS_TOKEN, (err, decoded) => {
         if (err) return res.sendStatus(403)
         req.username = decoded.username
         req.link = decoded.user_link
+        if (req.link !== user_link) return res.sendStatus(403)
         next()
     })
 }
