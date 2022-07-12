@@ -16,10 +16,10 @@ exports.getUsers = async (req, res) => {
 }
 
 exports.registerUser = async (req, res) => {
-    const { username, password, confirmationPass} = req.body
+    const { username, password, confirmationPass } = req.body
 
     if (password !== confirmationPass) {
-        res.status(401).json({ msg: 'Password tidak sama!' })
+        return res.status(401).json({ msg: 'Password tidak sama!' })
     }
 
     const salt = await bcrypt.genSalt()
@@ -30,9 +30,10 @@ exports.registerUser = async (req, res) => {
             username: username,
             password: hashPassword
         })
-        res.status(200).json({ msg: 'Mantap', user })
+        return res.status(200).json({ msg: 'Mantap', user })
     } catch (err) {
         console.error(err)
+        return res.status(401).json({ err })
     }
 }
 
@@ -121,18 +122,18 @@ exports.generateLink = async (req, res) => {
         const username = user[0].username.split(' ')[0]
         const randomNum = Math.floor(Math.random() * 90 + 10)
         const userId = user[0].id
-        const link = `${username}${userId}~${randomNum}!`   
+        const link = `${username}${userId}~${randomNum}!`
 
         // VALIDATE IF THERE'S ALREADY A LINK
-        if(user[0].user_link !== null) {
-            return res.status(401).json({msg: 'You already have a link'})
+        if (user[0].user_link !== null) {
+            return res.status(401).json({ msg: 'You already have a link' })
         }
-        await Users.update({user_link : link}, {
+        await Users.update({ user_link: link }, {
             where: {
                 id: userId
             }
         })
-        res.status(200).json({msg: 'link generated', link})
+        res.status(200).json({ msg: 'link generated', link })
     } catch (err) {
         console.error(err)
     }

@@ -3,10 +3,12 @@ const { DataTypes } = require('sequelize')
 // const { Messages } = require('./Message.js')
 const Users = db.define('User', {
     username: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        allowNull : false
     },
     password: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull : false
     },
     refresh_token: {
         type: DataTypes.STRING
@@ -29,7 +31,8 @@ const Messages = db.define('Msg', {
         type: DataTypes.STRING
     },
     message: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        allowNull : false
     }
 }, {
     freezeTableName: true
