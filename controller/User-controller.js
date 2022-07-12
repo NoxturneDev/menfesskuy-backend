@@ -16,7 +16,7 @@ exports.getUsers = async (req, res) => {
 }
 
 exports.registerUser = async (req, res) => {
-    const { username, password, confirmationPass, userLink } = req.body
+    const { username, password, confirmationPass} = req.body
 
     if (password !== confirmationPass) {
         res.status(401).json({ msg: 'Password tidak sama!' })
@@ -28,8 +28,7 @@ exports.registerUser = async (req, res) => {
     try {
         const user = await Users.create({
             username: username,
-            password: hashPassword,
-            user_link: userLink
+            password: hashPassword
         })
         res.status(200).json({ msg: 'Mantap', user })
     } catch (err) {
