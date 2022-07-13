@@ -10,10 +10,6 @@ router.post('/login', Login)
 router.delete('/logout', Logout)
 router.get('/api/token', tokenRefresh)
 
-// MESSAGE API
-router.get('/api/get/message', getMessages)
-router.post('/api/send/message', sendMessages)
-
 //GET SPECIFIC USER BY GIVEN LINK
 router.post('/api/send/message/:link', sendMessages)
 router.get('/api/get/message/:link', verifyToken, getMessages)
