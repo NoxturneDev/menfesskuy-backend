@@ -6,7 +6,7 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-    "username" : "",
+    "username" : "ropik",
     "password" : "123",
     "confirmationPass" : "123"
 
@@ -17,8 +17,8 @@ POST http://localhost:3001/login
 Content-Type: application/json
 
 {
-    "username" : "test",
-    "password" : "test"
+    "username" : "ropik",
+    "password" : "123"
 }
 
 ###
@@ -45,8 +45,6 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3001/api/get/message/test~483
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJOYW1lIjoidGVzdCIsInVzZXJfbGluayI6InRlc3R-NDgzIiwiaWF0IjoxNjU3Mjk3MzY1LCJleHAiOjE2NTcyOTczODB9.e6DmyQ3dVfyZ0dI6lYr8jm_TFekLOTbf914xMhdkabU
+GET http://localhost:3001/api/get/message/ropik~68!
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJ1c2VybmFtZSI6InJvcGlrIiwidXNlcl9saW5rIjoicm9waWt-NjghIiwiaWF0IjoxNjU3NzAyNDcwLCJleHAiOjE2NTc3MDI0ODV9.DDQKU5mtZtT6bCB9I4ZW32rJImxSqo44R4aHyH0slXo
 ###
-GET http://localhost:3001/api/get/link
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoidGVzdCIsInVzZXJfbGluayI6InRlc3R-NDgzIiwiaWF0IjoxNjU3Mjk3MzkyLCJleHAiOjE2NTcyOTc0MDd9.UM77P0mFrqqubowhNoZ6rPhrgFPugHbRFuiPv5qqcwE
