@@ -1,6 +1,4 @@
 const { Messages, Users } = require('../models/Users.js')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 
 
 exports.getMessages = async (req, res) => {
@@ -18,7 +16,6 @@ exports.getMessages = async (req, res) => {
         res.status(200).json({ msg: 'berhasil dpt pesan', msg })
     } catch (err) {
         res.status(204).json({ msg: 'tidak ada pesan' })
-        console.error(err)
     }
 }
 
@@ -42,12 +39,10 @@ exports.sendMessages = async (req, res) => {
             message: message
         })
 
-        const addMsg = await toUser[0].addTarget([newMsg])
+        await toUser[0].addTarget([newMsg])
 
         return res.status(200).json({ msg: 'berhasil mengirim pesan', newMsg, user_link, name, userId})
     } catch (err) {
         res.status(400).json({ msg: 'gagal mengirim pesan' })
-
-        console.error(err)
     }
 }

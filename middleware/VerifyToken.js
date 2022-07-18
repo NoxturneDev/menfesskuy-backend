@@ -22,8 +22,7 @@ exports.verifyToken = async (req, res, next) => {
 exports.tokenRefresh = async (req, res) => {
     try {
         const token = req.cookies.refreshToken
-        console.log(token)
-        console.log(req.cookies.refreshToken)
+        
         if (!token) return res.status(401).json({msg : 'gagal bro'})
 
         const user = await Users.findAll({
@@ -46,6 +45,6 @@ exports.tokenRefresh = async (req, res) => {
             res.json({ accessToken })
         })
     } catch (err) {
-        console.error(err)
+        res.status(400)
     }
 }
