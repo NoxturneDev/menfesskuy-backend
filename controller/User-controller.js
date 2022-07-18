@@ -34,7 +34,7 @@ exports.registerUser = async (req, res) => {
             password: hashPassword,
             user_link: link
         })
-        return res.status(200).json({ msg: 'Berhasil Registrasi', user })
+        return res.status(200).json({ msg: 'Mantap', user })
     } catch (err) {
         console.error(err)
         return res.status(401).json({ err })
@@ -44,19 +44,21 @@ exports.registerUser = async (req, res) => {
 exports.Login = async (req, res) => {
     try {
         const { username, password } = req.body
+
         const user = await Users.findAll({
             where: {
                 username: username
             }
         })
-        if (!user[0]) res.status(404).json({ msg: 'user ngga ketemu nih, cek lagi' })
+        if (!user[0]) res.status(404).json({ msg: 'user tidak ada' })
 
         const match = await bcrypt.compare(password, user[0].password)
-        if (!match) res.status(403).json({ msg: "Password salah cuy!" })
+        if (!match) res.status(403).json({ msg: "Password salah cok!" })
 
         const userId = user[0].id
         const userName = user[0].username
         const user_link = user[0].user_link
+
 
         const accessToken = jwt.sign({ userId, userName, user_link }, process.env.SECRET_ACCESS_TOKEN, {
             expiresIn: '15s'
@@ -72,19 +74,13 @@ exports.Login = async (req, res) => {
         }
         )
 
-        const token = req.cookies.refreshToken
-
-        // CHECK FOR TOKEN, PREVENTING MULTI LOGIN
-        if(token){
-            return res.status(400).json({msg: "you already logged in"})
-        }
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         })
-        return res.json({ accessToken })
+        res.json({ accessToken })
     } catch (err) {
-        res.status(400).json({ msg: 'Gagal login', err })
+        console.error(err)
     }
 }
 
@@ -109,9 +105,9 @@ exports.Logout = async (req, res) => {
         })
 
         res.clearCookie('refreshToken')
-        return res.status(200).json({ msg: 'Berhasil Logout' })
+        res.status(200).json({ msg: 'BERASHIL LOGOUT' })
     } catch (err) {
-        res.status(400).json({ msg: 'Gagal Logout' })
+        console.error(err)
     }
 }
 
