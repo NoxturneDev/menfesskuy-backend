@@ -19,7 +19,7 @@ exports.registerUser = async (req, res) => {
     const { username, password, confirmationPass } = req.body
 
     if (password !== confirmationPass) {
-        return res.status(401).json({ msg: 'Password tidak sama!' })
+        return res.status(401).json({ msg: 'Passwordnya ga sama nih!, kaya perasaan kamu sama dia' })
     }
 
     const salt = await bcrypt.genSalt()
@@ -50,10 +50,10 @@ exports.Login = async (req, res) => {
                 username: username
             }
         })
-        if (!user[0]) res.status(404).json({ msg: 'user tidak ada' })
+        if (!user[0]) return res.status(404).json({ msg: 'user tidak ditemukan, cek lagi cuyy' })
 
         const match = await bcrypt.compare(password, user[0].password)
-        if (!match) res.status(403).json({ msg: "Password salah cok!" })
+        if (!match) return res.status(403).json({ msg: "Password salah cuy!" })
 
         const userId = user[0].id
         const userName = user[0].username
@@ -80,6 +80,7 @@ exports.Login = async (req, res) => {
         })
         res.json({ accessToken })
     } catch (err) {
+        res.sendStatus(400)
         console.error(err)
     }
 }
@@ -105,8 +106,9 @@ exports.Logout = async (req, res) => {
         })
 
         res.clearCookie('refreshToken')
-        res.status(200).json({ msg: 'BERASHIL LOGOUT' })
+        return res.status(200).json({ msg: 'BERASHIL LOGOUT' })
     } catch (err) {
+        res.sendStatus(400)
         console.error(err)
     }
 }

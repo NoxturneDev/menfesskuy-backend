@@ -22,8 +22,7 @@ exports.verifyToken = async (req, res, next) => {
 exports.tokenRefresh = async (req, res) => {
     try {
         const token = req.cookies.refreshToken
-        console.log(token)
-        console.log(req.cookies.refreshToken)
+      
         if (!token) return res.status(401).json({msg : 'gagal bro'})
 
         const user = await Users.findAll({
@@ -32,9 +31,9 @@ exports.tokenRefresh = async (req, res) => {
             }
         })
 
-        if (!user[0]) res.sendStatus(403)
+        if (!user[0]) return res.sendStatus(403)
         jwt.verify(token, process.env.SECRET_REFRESH_TOKEN, (err) => {
-            if (err) res.sendStatus(403)
+            if (err) return res.sendStatus(403)
 
             const userId = user[0].id
             const username = user[0].username
@@ -47,5 +46,6 @@ exports.tokenRefresh = async (req, res) => {
         })
     } catch (err) {
         console.error(err)
+        return res.sendStatus(400)
     }
 }

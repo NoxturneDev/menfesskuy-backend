@@ -1,6 +1,5 @@
 const { Messages, Users } = require('../models/Users.js')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+
 
 
 exports.getMessages = async (req, res) => {
@@ -14,10 +13,10 @@ exports.getMessages = async (req, res) => {
         })
 
         const msg = await user[0].getTarget()
-        if (!msg[0]) return res.status(400).json({ msg: "tidak ada pesan" })
-        res.status(200).json({ msg: 'berhasil dpt pesan', msg })
+        if (!msg[0]) return res.status(404).json({ msg: "Andab elum mendapatkan pesan" })
+        res.status(200).json({ msg: 'Berhasil mendapatkan pesan', msg })
     } catch (err) {
-        res.status(204).json({ msg: 'tidak ada pesan' })
+        res.status(400).json({ msg: 'Gagal mendapatkan pesan' })
         console.error(err)
     }
 }
@@ -26,7 +25,6 @@ exports.sendMessages = async (req, res) => {
     const { from, to, message } = req.body
     const user_link = req.params['link']
 
-    console.log(user_link)
     try {
         const toUser = await Users.findAll({
             where: {
@@ -42,7 +40,7 @@ exports.sendMessages = async (req, res) => {
             message: message
         })
 
-        const addMsg = await toUser[0].addTarget([newMsg])
+        await toUser[0].addTarget([newMsg])
 
         return res.status(200).json({ msg: 'berhasil mengirim pesan', newMsg, user_link, name, userId})
     } catch (err) {
