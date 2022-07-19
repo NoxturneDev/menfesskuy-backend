@@ -28,8 +28,8 @@ try {
 }
 
 app.use(cookieParser())
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+app.use(cors({ credentials: true, origin: process.env.REACT_APP_URL || 'http://localhost:3000' }))
 app.use(express.json())
 app.use(Router)
 
-app.listen(port, console.log(`Listening to port ${port}`))
+app.listen(process.env.PORT || port, console.log(`Listening to port ${port}`))
