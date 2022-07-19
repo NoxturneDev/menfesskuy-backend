@@ -30,7 +30,7 @@ try {
 }
 
 app.use(cookieParser())
-app.use(cors({ credentials: true, origin: process.env.REACT_APP_URL || 'http://localhost:3000' }))
+app.use(cors({ credentials: true, origin: process.env.FRONT_END_URL || 'http://localhost:3000' }))
 app.use(express.json())
 app.use(Router)
 app.use('/', (req, res) =>{
