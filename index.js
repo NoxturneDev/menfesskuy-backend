@@ -11,6 +11,7 @@ dotenv.config()
 app = express()
 
 try {
+    console.log('COBA GAN RAILWAY NIH ASU')
     const connect = db.authenticate()
     connect.then(() => {
         console.log('berhasil')
