@@ -24,6 +24,7 @@ try {
         console.log('db created')
     })
 } catch (err) {
+    console.log('COBA GAN RAILWAY NIH ASU')
     console.error(err)
 }
 
