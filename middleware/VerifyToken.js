@@ -6,8 +6,7 @@ exports.verifyToken = async (req, res, next) => {
     const token = authHeader && authHeader.split(' ')[1]
     const user_link = req.params['link']
 
-    console.log(token)
-    if (token == null) return res.sendStatus(401)
+    if (token == null) return res.status(401).json({ msg: "gagal dapet token" })
     jwt.verify(token, process.env.SECRET_ACCESS_TOKEN, (err, decoded) => {
         if (err) return res.sendStatus(403)
         req.username = decoded.username
@@ -22,8 +21,8 @@ exports.verifyToken = async (req, res, next) => {
 exports.tokenRefresh = async (req, res) => {
     try {
         const token = req.cookies.refreshToken
-      
-        if (!token) return res.status(401).json({msg : 'gagal bro'})
+        console.log(token)
+        if (!token) return res.status(401).json({ msg: "gagal dapet token" })
 
         const user = await Users.findAll({
             where: {
