@@ -74,11 +74,11 @@ exports.Login = async (req, res) => {
         }
         )
 
-        console.log(refreshToken)
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000,
-            secure: true
+            secure: true,
+            sameSite: 'None'
         })
         res.json({ accessToken })
     } catch (err) {
