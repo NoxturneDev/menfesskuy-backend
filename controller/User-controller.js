@@ -50,10 +50,10 @@ exports.Login = async (req, res) => {
                 username: username
             }
         })
-        if (!user[0]) res.status(404).json({ msg: 'user tidak ditemukan, cek lagi cuyy' })
+        if (!user[0]) return res.status(404).json({ msg: 'user tidak ditemukan, cek lagi cuyy' })
 
         const match = await bcrypt.compare(password, user[0].password)
-        if (!match) res.status(403).json({ msg: "Password salah cuy!" })
+        if (!match) return res.status(403).json({ msg: "Password salah cuy!" })
 
         const userId = user[0].id
         const userName = user[0].username
@@ -80,10 +80,10 @@ exports.Login = async (req, res) => {
             secure: true,
             sameSite: 'None'
         })
-        res.json({ accessToken })
+       return res.status(200).json({ accessToken })
     } catch (err) {
-        res.sendStatus(400)
         console.error(err)
+        return res.sendStatus(400)
     }
 }
 

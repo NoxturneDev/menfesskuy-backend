@@ -21,7 +21,6 @@ exports.verifyToken = async (req, res, next) => {
 exports.tokenRefresh = async (req, res) => {
     try {
         const token = req.cookies.refreshToken
-        console.log(token)
         if (!token) return res.status(401).json({ msg: "gagal dapet token" })
 
         const user = await Users.findAll({
@@ -41,7 +40,7 @@ exports.tokenRefresh = async (req, res) => {
                 expiresIn: '15s'
             })
 
-            res.json({ accessToken })
+            return res.json({ accessToken })
         })
     } catch (err) {
         console.error(err)
