@@ -30,10 +30,10 @@ try {
 }
 
 app.use(cookieParser())
-app.use(cors({ credentials: true, origin: '*', }))
+app.use(cors({ credentials: true, origin: 'https://menfesskuy-frontend.vercel.app/' }))
 app.use(express.json())
 app.use(Router)
-app.use('/', (req, res) =>{
-    res.json({msg: "API FOR MENFESSKUY WEBSITE"})
-} )
+app.use('/', (req, res) => {
+    res.json({ msg: "API FOR MENFESSKUY WEBSITE" })
+})
 app.listen(process.env.PORT || port, console.log(`Listening to port ${port}`))
