@@ -32,6 +32,9 @@ exports.sendMessages = async (req, res) => {
             }
         })
 
+        if(!toUser[0]) {
+            return res.status(404).json({msg: "User ngga ada bro, cek linknya lagi"})
+        }
         const name = toUser[0].username
         const userId = toUser[0].id
         const newMsg = await Messages.create({
