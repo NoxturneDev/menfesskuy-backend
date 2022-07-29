@@ -4,7 +4,8 @@ const { DataTypes } = require('sequelize')
 const Users = db.define('User', {
     username: {
         type: DataTypes.TEXT,
-        allowNull : false
+        allowNull : false,
+        unique: true
     },
     password: {
         type: DataTypes.STRING,
