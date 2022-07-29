@@ -4,7 +4,7 @@ const Sequelize = require('sequelize')
 //     dialect: 'mysql'
 // })
 
-const db = new Sequelize(`mysql://root:${process.env.MYSQL_PASSWORD}@containers-us-west-29.railway.app:6340/railway`)
+const db = new Sequelize(`mysql://root:${process.env.MYSQL_PASSWORD}@containers-us-west-87.railway.app:7783/railway`)
 
 
 module.exports = db
