@@ -22,12 +22,14 @@ exports.registerUser = async (req, res) => {
         return res.status(401).json({ msg: 'Passwordnya ga sama nih!, kaya perasaan kamu sama dia' })
     }
 
+    const splittedUsername = username.split(' ')
     const salt = await bcrypt.genSalt()
     const hashPassword = await bcrypt.hash(password, salt)
     // GENERATE UNIQUE LINK FOR EACH USER
     const randomNum = Math.floor(Math.random() * 90 + 10)
-    const link = `${username}~${randomNum}`
-
+    const date = new Date()
+    const link = `${splittedUsername[0]}~${randomNum}${date.getMilliseconds()}`
+   
     try {
         const user = await Users.create({
             username: username,
@@ -80,7 +82,7 @@ exports.Login = async (req, res) => {
             secure: true,
             sameSite: 'None'
         })
-       return res.status(200).json({ accessToken })
+        return res.status(200).json({ accessToken })
     } catch (err) {
         console.error(err)
         return res.sendStatus(400)
