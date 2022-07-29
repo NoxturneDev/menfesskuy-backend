@@ -38,7 +38,9 @@ exports.registerUser = async (req, res) => {
         })
         return res.status(200).json({ msg: 'Mantap', user })
     } catch (err) {
-        console.error(err)
+        if(err.name === "SequelizeUniqueConstraintError"){
+            return res.status(401).json({ msg: 'Username udah ada, ganti dong ga kreatif amat' })
+        }
         return res.status(401).json({ err })
     }
 }
