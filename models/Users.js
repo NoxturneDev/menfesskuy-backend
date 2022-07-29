@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 // const { Messages } = require('./Message.js')
 const Users = db.define('User', {
     username: {
-        type: DataTypes.TEXT,
+        type: DataTypes.CHAR,
         allowNull : false,
         unique: true
     },
