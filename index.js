@@ -30,7 +30,7 @@ try {
 }
 
 app.use(cookieParser())
-app.use(cors({ credentials: true, origin: 'https://menfesskuy-frontend.vercel.app' }))
+app.use(cors({ credentials: true, origin: ['https://menfesskuy-frontend.vercel.app', 'http://localhost:3000'] }))
 app.use(express.json())
 app.use(Router)
 app.use('/', (req, res) => {
