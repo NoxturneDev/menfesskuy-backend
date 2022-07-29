@@ -26,7 +26,7 @@ exports.registerUser = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, salt)
     // GENERATE UNIQUE LINK FOR EACH USER
     const randomNum = Math.floor(Math.random() * 90 + 10)
-    const link = `${username}~${randomNum}!`
+    const link = `${username}~${randomNum}`
 
     try {
         const user = await Users.create({
